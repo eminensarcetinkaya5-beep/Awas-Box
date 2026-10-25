@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awas Box - TikTok Live Overlay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="transparent-bg">
+    <div class="app-container">
+        <!-- Canlı Overlay Sahnesi -->
+        <main class="overlay-stage" id="overlay-stage">
+            <div class="card-display" id="card-display">
+                <div class="lock-badge" id="lock-badge">🔓 Kilidi Açık</div>
+                <div class="gift-icon-box" id="gift-box">
+                    <span id="gift-emoji">🎮</span>
+                </div>
+                <div class="gift-text-box" id="gift-text-display">
+                    GG KAZANDIK!
+                </div>
+            </div>
+        </main>
+
+        <!-- Kontrol Paneli -->
+        <section class="control-panel">
+            <div class="panel-header">
+                <h2>📦 Awas Box Stüdyosu</h2>
+                <button class="btn-share" onclick="shareApp()">📤 Linki Paylaş</button>
+            </div>
+
+            <!-- Hediye Seçimi -->
+            <div class="form-group">
+                <label for="gift-select">Hediye Seç:</label>
+                <select id="gift-select" onchange="updateGiftIcon()">
+                    <option value="🎮">GG (Oyun / Good Game)</option>
+                    <option value="🌹">Gül (Rose)</option>
+                    <option value="🦁">Aslan (Lion)</option>
+                    <option value="🪄">Zafer Asası (Magic Wand)</option>
+                    <option value="🛥️">Yat (Yacht)</option>
+                    <option value="🚁">Helikopter (Helicopter)</option>
+                    <option value="🚀">Roket (Rocket)</option>
+                    <option value="👑">Kral Tacı (Crown)</option>
+                    <option value="💎">Elmas (Diamond)</option>
+                    <option value="🏎️">Spor Araba (Car)</option>
+                    <option value="🦄">Unicorn</option>
+                    <option value="☕">Kahve (Coffee)</option>
+                    <option value="🔥">Alev (Fire)</option>
+                    <option value="❤️">Kalp (Heart)</option>
+                </select>
+            </div>
+
+            <!-- Yazı Girişi -->
+            <div class="form-group">
+                <label for="gift-text-input">Hediyenin Altındaki Yazı:</label>
+                <input type="text" id="gift-text-input" placeholder="Örn: GG Hediyesi Atan Kuralları Koyar!" value="GG KAZANDIK!">
+            </div>
+
+            <!-- Boyut, Şeffaflık ve Kilit Kontrolleri -->
+            <div class="controls-grid">
+                <div class="control-box">
+                    <label>Simge Boyutu:</label>
+                    <div class="btn-group">
+                        <button class="btn-sm" onclick="changeSize(5)">➕ Büyüt</button>
+                        <button class="btn-sm" onclick="changeSize(-5)">➖ Küçült</button>
+                    </div>
+                </div>
+
+                <div class="control-box">
+                    <label>Arka Plan:</label>
+                    <div class="toggle-wrapper">
+                        <span id="bg-label">Şeffaf</span>
+                        <input type="checkbox" id="transparent-toggle" checked onchange="toggleBackground()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uygula / Kilitle Butonları -->
+            <div class="action-buttons">
+                <button class="btn-apply" onclick="applySettings()">✨ Ekrana Uygula</button>
+                <button class="btn-lock" id="btn-lock-toggle" onclick="toggleLockState()">🔒 Konumu Kilitle</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
