@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awas Box - TikTok Live Overlay</title>
+    <title>Awas Box - Pro TikTok Overlay</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="transparent-bg">
     <div class="app-container">
-        <!-- Canlı Overlay Sahnesi -->
+        <!-- Kayan / Sürüklenebilir Ödül Kutusu (Diğer uygulamaların üzerinde görünecek alan) -->
         <main class="overlay-stage" id="overlay-stage">
             <div class="card-display" id="card-display">
-                <div class="lock-badge" id="lock-badge">🔓 Kilidi Açık</div>
+                <div class="lock-badge" id="lock-badge">🔓 Taşınabilir Kutu</div>
                 <div class="gift-icon-box" id="gift-box">
-                    <span id="gift-emoji">🎮</span>
+                    <img id="gift-img" src="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/1582236531393541~c5_100x100.jpeg?x-expires=1735689600&x-signature=k%2F3%2F..." alt="Hediye">
                 </div>
                 <div class="gift-text-box" id="gift-text-display">
                     GG KAZANDIK!
@@ -24,44 +24,60 @@
         <!-- Kontrol Paneli -->
         <section class="control-panel">
             <div class="panel-header">
-                <h2>📦 Awas Box Stüdyosu</h2>
-                <button class="btn-share" onclick="shareApp()">📤 Linki Paylaş</button>
+                <h2>📦 Awas Box Canlı Stüdyo</h2>
+                <button class="btn-share" onclick="shareApp()">📤 Paylaş</button>
             </div>
 
-            <!-- Hediye Seçimi -->
+            <!-- Hediye Arama -->
             <div class="form-group">
-                <label for="gift-select">Hediye Seç:</label>
-                <select id="gift-select" onchange="updateGiftIcon()">
-                    <option value="🎮">GG (Oyun / Good Game)</option>
-                    <option value="🌹">Gül (Rose)</option>
-                    <option value="🦁">Aslan (Lion)</option>
-                    <option value="🪄">Zafer Asası (Magic Wand)</option>
-                    <option value="🛥️">Yat (Yacht)</option>
-                    <option value="🚁">Helikopter (Helicopter)</option>
-                    <option value="🚀">Roket (Rocket)</option>
-                    <option value="👑">Kral Tacı (Crown)</option>
-                    <option value="💎">Elmas (Diamond)</option>
-                    <option value="🏎️">Spor Araba (Car)</option>
-                    <option value="🦄">Unicorn</option>
-                    <option value="☕">Kahve (Coffee)</option>
-                    <option value="🔥">Alev (Fire)</option>
-                    <option value="❤️">Kalp (Heart)</option>
+                <label for="gift-search">Hediye ve Ödül Ara:</label>
+                <input type="text" id="gift-search" placeholder="Örn: Aslan, Balina, Gül, Universe..." oninput="filterGifts()">
+            </div>
+
+            <!-- Hediye Seçimi (TikTok Resmi Görsel Linkleriyle) -->
+            <div class="form-group">
+                <label for="gift-select">TikTok Hediyesi Seç:</label>
+                <select id="gift-select" onchange="updateGiftImage()">
+                    <optgroup label="🔥 Mega / Efsanevi Hediyeler">
+                        <option value="https://p16-sign-useast2a.tiktokcdn.com/obj/tos-useast2a-p-0068/7c70f80879f743c4826b671a539bc131" data-name="TikTok Universe">🌌 TikTok Universe (44999 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/7a976a26dfed010375a0d33190fc42d8" data-name="Aslan">🦁 Aslan (29999 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/049e0c50d03285718228ac6974d618d3" data-name="Balina Sam">🐳 Balina Sam (30000 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/tos-useast2a-p-0068/0879435b6df84649b1a520286b5c3e10" data-name="Çöl Kurdu">🐺 Çöl Kurdu (5500 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/8a92aa56bc2b392182df563b715a31a9" data-name="Özel Jet">✈️ Özel Jet (4888 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/7e9b0bc7a1a4512b9d2a1b9b9423c91f" data-name="Şahin">🦅 Şahin (10999 Jeton)</option>
+                    </optgroup>
+                    <optgroup label="🍔 Gurme & Yemek">
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/07191244da62829281a1795c61304529" data-name="Döner">🥙 Döner (5000 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/9b5c2194f4a569116a411516e81a3d10" data-name="Kebap">🍢 Kebap (2800 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/tos-useast2a-p-0068/9b09f425114749f7b102871142517592" data-name="Sultan Sofrası">🥘 Sultan Sofrası (9999 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/1582236531393541~c5_100x100.jpeg" data-name="Türk Kahvesi">☕ Türk Kahvesi (5 Jeton)</option>
+                    </optgroup>
+                    <optgroup label="🎮 Oyun & Eğlence">
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/274a2b9218a9394182a92ba91823901b" data-name="GG Oyun Kumandası">🎮 GG (Oyun Kumandası)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/7a9b7182930a94182a91b9239102b412" data-name="Boks Eldivenleri">🥊 Boks Eldivenleri (1999 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/8a91b239102a941829a1b923910241aa" data-name="Spor Araba">🏎️ Spor Araba (7000 Jeton)</option>
+                    </optgroup>
+                    <optgroup label="💖 Özel & Popüler">
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/7c82a1b9239102a941829a1b92391024" data-name="Gül">🌹 Gül / Rosa</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/tos-useast2a-p-0068/193284a1b9239102a941829a1b923910" data-name="Gül Nebulası">🌹 Gül Nebulası (15000 Jeton)</option>
+                        <option value="https://p16-sign-va.tiktokcdn.com/obj/musically-maliva-obj/6a91b239102a941829a1b923910241bb" data-name="Kalp Balonu">🎈 Kalp Balonu (2999 Jeton)</option>
+                    </optgroup>
                 </select>
             </div>
 
             <!-- Yazı Girişi -->
             <div class="form-group">
                 <label for="gift-text-input">Hediyenin Altındaki Yazı:</label>
-                <input type="text" id="gift-text-input" placeholder="Örn: GG Hediyesi Atan Kuralları Koyar!" value="GG KAZANDIK!">
+                <input type="text" id="gift-text-input" placeholder="Yazı yazın..." value="GG KAZANDIK!">
             </div>
 
-            <!-- Boyut, Şeffaflık ve Kilit Kontrolleri -->
+            <!-- Boyut ve Şeffaflık -->
             <div class="controls-grid">
                 <div class="control-box">
-                    <label>Simge Boyutu:</label>
+                    <label>Görsel Boyutu:</label>
                     <div class="btn-group">
-                        <button class="btn-sm" onclick="changeSize(5)">➕ Büyüt</button>
-                        <button class="btn-sm" onclick="changeSize(-5)">➖ Küçült</button>
+                        <button class="btn-sm" onclick="changeSize(10)">➕ Büyüt</button>
+                        <button class="btn-sm" onclick="changeSize(-10)">➖ Küçült</button>
                     </div>
                 </div>
 
@@ -74,7 +90,7 @@
                 </div>
             </div>
 
-            <!-- Uygula / Kilitle Butonları -->
+            <!-- Butonlar -->
             <div class="action-buttons">
                 <button class="btn-apply" onclick="applySettings()">✨ Ekrana Uygula</button>
                 <button class="btn-lock" id="btn-lock-toggle" onclick="toggleLockState()">🔒 Konumu Kilitle</button>
